@@ -7,7 +7,7 @@ namespace GoSelfies
         private readonly string filePath;
         public AndroidFileHelper()
         {
-            filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "GoSelfieFiles");
+            filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "GoSelfieFiles");
 
             if (!Directory.Exists(filePath))
                 Directory.CreateDirectory(filePath);

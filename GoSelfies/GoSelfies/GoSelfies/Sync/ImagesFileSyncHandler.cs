@@ -11,16 +11,16 @@ using Microsoft.WindowsAzure.MobileServices.Sync;
 
 namespace GoSelfies
 {
-    public class ImagesFileSyncHandler : IFileSyncHandler
+    public class ImagesFileSyncHandler<T> : IFileSyncHandler where T : class
     {
         private readonly IFileHelper fileHelper;
         private readonly IFileSyncHelper fileSyncHelper;
-        private readonly IMobileServiceSyncTable<TodoItem> todoTable;
-        public ImagesFileSyncHandler()
+        private readonly IMobileServiceSyncTable<T> todoTable;
+        public ImagesFileSyncHandler(IMobileServiceSyncTable<T> table)
         {
             fileHelper = DependencyService.Get<IFileHelper>();
             fileSyncHelper = DependencyService.Get<IFileSyncHelper>();
-            todoTable = DependencyService.Get<IDataService>().TodoTable;
+            todoTable = table;
         }
         public Task<IMobileServiceFileDataSource> GetDataSource(MobileServiceFileMetadata metadata)
         {

@@ -29,12 +29,12 @@ namespace GoSelfies
             set { name = value; }
         }
 
-        [JsonProperty(PropertyName = "notes")]
-        public string Notes
-        {
-            get { return notes; }
-            set { notes = value; }
-        }
+        //[JsonProperty(PropertyName = "notes")]
+        //public string Notes
+        //{
+        //    get { return notes; }
+        //    set { notes = value; }
+        //}
 
         [JsonProperty(PropertyName = "complete")]
         public bool Done

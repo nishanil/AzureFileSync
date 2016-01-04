@@ -19,10 +19,10 @@ namespace GoSelfies
         {
             this.client = new MobileServiceClient(App.ApplicationURL);
             var store = new MobileServiceSQLiteStore("goselfiesstore.db");
-            store.DefineTable<TodoItem>();
-            this.client.InitializeFileSyncContext(new ImagesFileSyncHandler(), store);
-            this.client.SyncContext.InitializeAsync(store, StoreTrackingOptions.AllNotifications);
+            store.DefineTable<TodoItem>(); 
             this.todoTable = this.client.GetSyncTable<TodoItem>();
+            this.client.InitializeFileSyncContext(new ImagesFileSyncHandler<TodoItem>(todoTable), store);
+            this.client.SyncContext.InitializeAsync(store, StoreTrackingOptions.AllNotifications);
             var dispose = this.client.EventManager.Subscribe<Microsoft.WindowsAzure.MobileServices.Eventing.IMobileServiceEvent>((e) => {
                 System.Diagnostics.Debug.WriteLine("Event Handled: " + e.Name);
             });

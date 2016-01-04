@@ -18,7 +18,8 @@ namespace GoSelfies
         IFileHelper fileHelper;
         public TodoItemManager()
         {
-            azureService = Xamarin.Forms.DependencyService.Get<IDataService>();
+            //azureService = Xamarin.Forms.DependencyService.Get<IDataService>();
+            azureService = new AzureDataService();
             todoTable = azureService.TodoTable;
             fileHelper = Xamarin.Forms.DependencyService.Get<IFileHelper>();
         }
@@ -29,6 +30,8 @@ namespace GoSelfies
 
             try
             {
+
+                await this.todoTable.MobileServiceClient.SyncContext.PushAsync();
                 // FILES: Push file changes
                 await this.todoTable.PushFileChangesAsync();
 
