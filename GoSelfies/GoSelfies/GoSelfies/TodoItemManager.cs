@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.IO;
+using System.Linq;
 
 namespace GoSelfies
 {
@@ -34,10 +35,11 @@ namespace GoSelfies
                 await this.todoTable.MobileServiceClient.SyncContext.PushAsync();
                 // FILES: Push file changes
                 await this.todoTable.PushFileChangesAsync();
-
+                
                 // FILES: Automatic pull
                 // A normal pull will automatically process new/modified/deleted files, engaging the file sync handler
                 await this.todoTable.PullAsync("todoItems", this.todoTable.CreateQuery());
+                
             }
             catch (MobileServicePushFailedException exc)
             {
@@ -67,11 +69,12 @@ namespace GoSelfies
             }
         }
 
-        public async Task<IEnumerable<TodoItem>> GetTodoItemsAsync()
+        public async Task<List<TodoItem>> GetTodoItemsAsync()
         {
             try
             {
-                return await todoTable.ReadAsync();
+                var todos = await todoTable.ReadAsync();
+                return todos.ToList();
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -133,9 +136,11 @@ namespace GoSelfies
             await this.todoTable.UpdateAsync(todoItem);
         }
 
-        internal async Task<IEnumerable<MobileServiceFile>> GetImageFiles(TodoItem todoItem)
+        internal async Task<IEnumerable<MobileServiceFile>> GetImageFiles(TodoItem todoItem, bool requiresServerPull = false)
         {
             // FILES: Get files (local)
+            if (requiresServerPull)
+                await this.todoTable.PullFilesAsync(todoItem);
             return await this.todoTable.GetFilesAsync(todoItem);
         }
     }

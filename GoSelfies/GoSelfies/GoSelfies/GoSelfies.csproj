@@ -39,6 +39,9 @@
     <Compile Include="Helpers\IFileHelper.cs" />
     <Compile Include="Helpers\IFileSyncHelper.cs" />
     <Compile Include="Models\TodoItem.cs" />
+    <Compile Include="Pages\SelfieListPage.xaml.cs">
+      <DependentUpon>SelfieListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\TakeASelfiePage.xaml.cs">
       <DependentUpon>TakeASelfiePage.xaml</DependentUpon>
     </Compile>
@@ -47,6 +50,9 @@
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Sync\ImagesFileSyncHandler.cs" />
     <Compile Include="TodoItemManager.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\SelfieListViewModel.cs" />
+    <Compile Include="ViewModels\TodoItemViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -113,6 +119,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\TakeASelfiePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Pages\SelfieListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

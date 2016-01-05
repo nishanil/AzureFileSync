@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace GoSelfies.iOS
 {
@@ -25,6 +26,7 @@ namespace GoSelfies.iOS
             global::Xamarin.Forms.Forms.Init();
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             SQLitePCL.CurrentPlatform.Init();
+            ImageCircleRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

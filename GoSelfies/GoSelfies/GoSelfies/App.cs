@@ -26,9 +26,10 @@ namespace GoSelfies
 
             selfieButton.Clicked += SelfieButton_Clicked;
 
-            // The root page of your application
-            MainPage = new ContentPage
+            var tabbedPage = new TabbedPage();
+            tabbedPage.Children.Add(new ContentPage
             {
+                Title = "Home",
                 Content = new StackLayout
                 {
                     VerticalOptions = LayoutOptions.Center,
@@ -40,7 +41,13 @@ namespace GoSelfies
                         selfieButton
                     }
                 }
-            };
+            });
+
+            tabbedPage.Children.Add(new GoSelfies.Pages.SelfieListPage());
+
+            // The root page of your application
+            MainPage = tabbedPage;
+                
         }
 
         private async void SelfieButton_Clicked(object sender, EventArgs e)

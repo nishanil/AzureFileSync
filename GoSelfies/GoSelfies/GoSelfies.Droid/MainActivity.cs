@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace GoSelfies.Droid
 {
@@ -18,7 +19,7 @@ namespace GoSelfies.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
-            
+            ImageCircleRenderer.Init();
             LoadApplication(new App());
         }
     }
