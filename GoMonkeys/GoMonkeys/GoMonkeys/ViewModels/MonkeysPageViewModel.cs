@@ -28,7 +28,8 @@ namespace GoMonkeys.ViewModels
 
         Command refreshCommand;
 
-        async Task LoadMonkeys()
+
+        public async Task LoadMonkeys()
         {
             IsBusy = true;
             Monkeys.Clear();

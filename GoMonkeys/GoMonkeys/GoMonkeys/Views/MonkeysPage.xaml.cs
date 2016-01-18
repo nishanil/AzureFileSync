@@ -20,8 +20,8 @@ namespace GoMonkeys.Views
 
         protected async override void OnAppearing()
         {
+            await vm.LoadMonkeys();
             await App.MonkeyDataManager.SyncAsync();
-            vm.RefreshCommand.Execute(null);
             base.OnAppearing();
         }
         private async void MenuItem_OnClicked(object sender, EventArgs e)

@@ -12,9 +12,6 @@ namespace GoMonkeys
         MobileServiceClient client;
         public MobileServiceClient Client { get { return client; } }
 
-        //IMobileServiceSyncTable<TodoItem> todoTable;
-        //public IMobileServiceSyncTable<TodoItem> TodoTable { get { return todoTable; } }
-
         IMobileServiceSyncTable<Monkey> monkeyTable;
         public IMobileServiceSyncTable<Monkey> MonkeyTable { get { return monkeyTable; } }
         public AzureDataService()

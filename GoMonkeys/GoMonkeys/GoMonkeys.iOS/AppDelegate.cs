@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 using ImageCircle.Forms.Plugin.iOS;
+using Xamarin.Forms.Platform.iOS;
 
 namespace GoMonkeys.iOS
 {
@@ -23,6 +24,13 @@ namespace GoMonkeys.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            UINavigationBar.Appearance.TintColor = Theme.PrimaryColor.ToUIColor();
+            UINavigationBar.Appearance.SetTitleTextAttributes(new UITextAttributes()
+            {
+                Font = UIFont.PreferredHeadline,
+                TextColor = Theme.PrimaryColor.ToUIColor()
+            });
+
             global::Xamarin.Forms.Forms.Init();
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             SQLitePCL.CurrentPlatform.Init();

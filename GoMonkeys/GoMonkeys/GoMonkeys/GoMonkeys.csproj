@@ -48,13 +48,10 @@
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Sync\ImagesFileSyncHandler.cs" />
     <Compile Include="Theme.cs" />
-    <Compile Include="TodoItemManager.cs" />
     <Compile Include="ViewModels\AddMonkeyPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MonkeysPageViewModel.cs" />
     <Compile Include="ViewModels\MonkeyViewModel.cs" />
-    <Compile Include="ViewModels\SelfieListViewModel.cs" />
-    <Compile Include="ViewModels\TodoItemViewModel.cs" />
     <Compile Include="Views\AddMonkeyPage.xaml.cs">
       <DependentUpon>AddMonkeyPage.xaml</DependentUpon>
     </Compile>
