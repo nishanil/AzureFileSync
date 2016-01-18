@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
+﻿using GoMonkeys.Models;
+using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.Files.Sync;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 using System;
@@ -13,6 +14,6 @@ namespace GoMonkeys
     {
         MobileServiceClient Client { get; }
 
-        IMobileServiceSyncTable<TodoItem> TodoTable { get; }
+        IMobileServiceSyncTable<Monkey> MonkeyTable { get; }
     }
 }

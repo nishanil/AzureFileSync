@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GoMonkeys;assembly=GoMonkeys"
+             x:Class="GoMonkeys.Views.MonkeysPage" Title="{Binding Title}">
+  <ContentPage.ToolbarItems>
+    <ToolbarItem Name="Add" Clicked="MenuItem_OnClicked" >
+      <ToolbarItem.Icon>
+        <OnPlatform x:TypeArguments="FileImageSource" Android="ic_action_new" />
+      </ToolbarItem.Icon>
+    </ToolbarItem>
+  </ContentPage.ToolbarItems>
+  <ContentPage.Content>
+    <ListView x:Name="monkeysListView"
+			SeparatorVisibility="None"
+			HasUnevenRows="true"
+			IsPullToRefreshEnabled="true"
+			RefreshCommand="{Binding RefreshCommand}"
+			IsRefreshing="{Binding IsBusy}"
+			ItemsSource="{Binding Monkeys}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Orientation="Vertical" BackgroundColor="White">
+              <RelativeLayout>
+                <Image x:Name="monkeyImage" Source="{Binding PhotoUrl}" HeightRequest="{Binding ImageHeight}" WidthRequest="{Binding ImageWidth}" />
+               </RelativeLayout>
+              <Grid Padding="8,0">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Text="{Binding UserName}" VerticalOptions="Fill" Grid.Row="0"  FontSize="15" TextColor="{x:Static local:Theme.PrimaryColor}" Grid.Column="1"/>
+                <Label LineBreakMode="WordWrap" FontSize="12" Text="{Binding Status}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextColor="{x:Static local:Theme.TextColor}" />
+              </Grid>
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </ContentPage.Content>
+</ContentPage>

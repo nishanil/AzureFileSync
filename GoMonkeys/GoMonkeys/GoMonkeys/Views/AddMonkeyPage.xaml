@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:GoMonkeys;assembly=GoMonkeys"
+             x:Class="GoMonkeys.Views.AddMonkeyPage">
+    <Grid BackgroundColor="White" HorizontalOptions="FillAndExpand"
+          Padding="0"
+          RowSpacing="2"
+          ColumnSpacing="0"
+          VerticalOptions="FillAndExpand">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <RelativeLayout>
+        <Image x:Name="DefaultPhoto" Source="{Binding Photo}" Aspect="AspectFill" />
+        <Image x:Name="PickPhoto" HeightRequest="50" WidthRequest="50" Source="cameraoutline.png" RelativeLayout.YConstraint="{ConstraintExpression Type=Constant, &#xA; Constant=0}" RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, &#xA;Property=Width,&#xA;ElementName=DefaultPhoto,&#xA;Constant=-48}" />
+      </RelativeLayout>
+     
+      <ScrollView Grid.Row="1">
+        <Grid
+           HorizontalOptions="FillAndExpand"
+           Padding="0"
+           RowSpacing="5"
+           ColumnSpacing="0"
+           VerticalOptions="FillAndExpand">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+          </Grid.ColumnDefinitions>
+           <Label Text="What are monkey&#39;s upto?" VerticalOptions="Fill" Grid.Row="1"  FontSize="12" TextColor="{x:Static local:Theme.PrimaryColor}" Grid.Column="1"/>
+          <Entry Text="{Binding Status, Mode=TwoWay}" VerticalOptions="Fill" Grid.Row="2"  FontSize="15" TextColor="{x:Static local:Theme.TextColor}" Grid.Column="1"/>
+          <Button TextColor="White" BackgroundColor="{x:Static local:Theme.PrimaryColor}" Grid.Row="3" Text="Upload Photo"  Grid.Column="1" Command="{Binding UploadPhotoCommand}" />
+
+        </Grid>
+      </ScrollView>
+     
+    </Grid>
+</ContentPage>

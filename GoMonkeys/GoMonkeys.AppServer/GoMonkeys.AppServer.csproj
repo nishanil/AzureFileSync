@@ -190,9 +190,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Startup.MobileApp.cs" />
+    <Compile Include="Controllers\MonkeyController.cs" />
+    <Compile Include="Controllers\MonkeyStorageController.cs" />
     <Compile Include="Controllers\TodoItemController.cs" />
     <Compile Include="Controllers\TodoItemStorageController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="DataObjects\Monkey.cs" />
     <Compile Include="DataObjects\TodoItem.cs" />
     <Compile Include="Models\GoSelfiesContext.cs" />
     <Compile Include="Startup.cs" />

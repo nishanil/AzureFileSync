@@ -36,23 +36,31 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Controls\ImageButton.cs" />
     <Compile Include="Helpers\IFileHelper.cs" />
     <Compile Include="Helpers\IFileSyncHelper.cs" />
+    <Compile Include="IDisplay.cs" />
+    <Compile Include="Models\Monkey.cs" />
     <Compile Include="Models\TodoItem.cs" />
-    <Compile Include="Pages\SelfieListPage.xaml.cs">
-      <DependentUpon>SelfieListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\TakeASelfiePage.xaml.cs">
-      <DependentUpon>TakeASelfiePage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="MonkeyDataManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AzureDataService.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Sync\ImagesFileSyncHandler.cs" />
+    <Compile Include="Theme.cs" />
     <Compile Include="TodoItemManager.cs" />
+    <Compile Include="ViewModels\AddMonkeyPageViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\MonkeysPageViewModel.cs" />
+    <Compile Include="ViewModels\MonkeyViewModel.cs" />
     <Compile Include="ViewModels\SelfieListViewModel.cs" />
     <Compile Include="ViewModels\TodoItemViewModel.cs" />
+    <Compile Include="Views\AddMonkeyPage.xaml.cs">
+      <DependentUpon>AddMonkeyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MonkeysPage.xaml.cs">
+      <DependentUpon>MonkeysPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -118,13 +126,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\TakeASelfiePage.xaml">
+    <EmbeddedResource Include="Views\MonkeysPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Pages\SelfieListPage.xaml">
+    <EmbeddedResource Include="Views\AddMonkeyPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

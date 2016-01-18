@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.MobileServices;
+﻿using GoMonkeys.Models;
+using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.WindowsAzure.MobileServices.Files;
 using Microsoft.WindowsAzure.MobileServices.Sync;
 
@@ -12,17 +13,17 @@ using System.Linq;
 
 namespace GoMonkeys
 {
-    public class TodoItemManager
+
+    public class MonkeyDataManager
     {
         IDataService azureService;
-        IMobileServiceSyncTable<TodoItem> todoTable;
+        IMobileServiceSyncTable<Monkey> monkeyTable;
         IFileHelper fileHelper;
-        public TodoItemManager()
-        {
 
-            //azureService = Xamarin.Forms.DependencyService.Get<IDataService>();
-            azureService = new AzureDataService();
-            //todoTable = azureService.TodoTable;
+        public MonkeyDataManager()
+        {
+            azureService = Xamarin.Forms.DependencyService.Get<IDataService>();
+            monkeyTable = azureService.MonkeyTable;
             fileHelper = Xamarin.Forms.DependencyService.Get<IFileHelper>();
         }
 
@@ -33,14 +34,14 @@ namespace GoMonkeys
             try
             {
 
-                await this.todoTable.MobileServiceClient.SyncContext.PushAsync();
+                await this.monkeyTable.MobileServiceClient.SyncContext.PushAsync();
                 // FILES: Push file changes
-                await this.todoTable.PushFileChangesAsync();
-                
+                await this.monkeyTable.PushFileChangesAsync();
+
                 // FILES: Automatic pull
                 // A normal pull will automatically process new/modified/deleted files, engaging the file sync handler
-                await this.todoTable.PullAsync("todoItems", this.todoTable.CreateQuery());
-                
+                await this.monkeyTable.PullAsync("allmonkeys", this.monkeyTable.CreateQuery().Where((monkey)=> monkey.UserName == App.UserName));
+
             }
             catch (MobileServicePushFailedException exc)
             {
@@ -70,12 +71,12 @@ namespace GoMonkeys
             }
         }
 
-        public async Task<List<TodoItem>> GetTodoItemsAsync()
+        public async Task<List<Monkey>> GetMonkeysAsync()
         {
             try
             {
-                var todos = await todoTable.ReadAsync();
-                return todos.ToList();
+                var monkeys = await monkeyTable.ReadAsync();
+                return monkeys.ToList();
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -88,21 +89,21 @@ namespace GoMonkeys
             return null;
         }
 
-        public async Task SaveTaskAsync(TodoItem item)
+        public async Task SaveMonkeyAsync(Monkey item)
         {
             if (item.Id == null)
             {
-                await todoTable.InsertAsync(item);
+                await this.monkeyTable.InsertAsync(item);
             }
             else
-                await todoTable.UpdateAsync(item);
+                await this.monkeyTable.UpdateAsync(item);
         }
 
-        public async Task DeleteTaskAsync(TodoItem item)
+        public async Task DeleteMonkeyAsync(Monkey item)
         {
             try
             {
-                await todoTable.DeleteAsync(item);
+                await monkeyTable.DeleteAsync(item);
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -114,35 +115,35 @@ namespace GoMonkeys
             }
         }
 
-        internal async Task<MobileServiceFile> AddImage(TodoItem todoItem, string imagePath)
+        internal async Task<MobileServiceFile> AddImage(Monkey monkey, string imagePath)
         {
-            string targetPath = fileHelper.CopyFileToAppDirectory(todoItem.Id, imagePath);
+            string targetPath = fileHelper.CopyFileToAppDirectory(monkey.Id, imagePath);
 
             // FILES: Creating/Adding file
-            MobileServiceFile file =  await this.todoTable.AddFileAsync(todoItem, Path.GetFileName(targetPath));
+            MobileServiceFile file = await this.monkeyTable.AddFileAsync(monkey, Path.GetFileName(targetPath));
 
-            
+
             // "Touch" the record to mark it as updated
-            await this.todoTable.UpdateAsync(todoItem);
+            await this.monkeyTable.UpdateAsync(monkey);
 
             return file;
         }
 
-        internal async Task DeleteImage(TodoItem todoItem, MobileServiceFile file)
+        internal async Task DeleteImage(Monkey monkey, MobileServiceFile file)
         {
             // FILES: Deleting file
-            await this.todoTable.DeleteFileAsync(file);
+            await this.monkeyTable.DeleteFileAsync(file);
 
             // "Touch" the record to mark it as updated
-            await this.todoTable.UpdateAsync(todoItem);
+            await this.monkeyTable.UpdateAsync(monkey);
         }
 
-        internal async Task<IEnumerable<MobileServiceFile>> GetImageFiles(TodoItem todoItem, bool requiresServerPull = false)
+        internal async Task<IEnumerable<MobileServiceFile>> GetImageFiles(Monkey monkey)
         {
             // FILES: Get files (local)
-            if (requiresServerPull)
-                await this.todoTable.PullFilesAsync(todoItem);
-            return await this.todoTable.GetFilesAsync(todoItem);
+            //if (requiresServerPull)
+            //    await this.monkeyTable.PullFilesAsync(todoItem);
+            return await this.monkeyTable.GetFilesAsync(monkey);
         }
     }
 }
